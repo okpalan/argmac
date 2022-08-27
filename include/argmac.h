@@ -9,7 +9,7 @@
 #define ARGMAC_H
 // for debugging
 #define DO_VA_ARGS_DEBUG 0
-#define __VA_ARGS__LENGTH 0
+int __VA_ARGS__LENGTH;
 
 // define DO_PRAGMA to use the _Pragma operator.
 #define DO_PRAGMA(x) _Pragma(#x)
@@ -19,6 +19,7 @@
 #define COUNT_ARGS(...) \
     COUNT_ARGS_HELPER(__VA_ARGS__, 2, 1, 0)
 
+
 #define SET_VA_ARG_LENGTH(...) \
     __VA_ARGS__LENGTH = COUNT_ARGS(__VA_ARGS__)
 
@@ -26,7 +27,7 @@
     __VA_ARGS__[I] = __VA_ARGS__
 
 #define GET_VA_AGRS_AT(I, ...) \
-    __VA_ARGS__##I
+    __VA_ARGS__[I]
 
 // Define the macros for the argument list
 // and prevent them from being called more than
@@ -34,16 +35,17 @@
 
 // unsafe macro
 #define DO_VA_ARGS_UNSAFE(...)                        \
-    for (int i = 0; i < COUNT_ARGS(__VA_ARGS__); i++) \
+    __VA_ARGS__LENGTH = COUNT_ARGS(__VA_ARGS__); \
+    for (int i = 0; i < __VA_ARGS__LENGTH; i++)       \
     {                                                 \
-        DO_PRAGMA(SET_VA_AGRS_AT(i, __VA_ARGS__))     \
-        SET_VA_ARG_LENGTH(__VA_ARGS__)                \
+        DO_PRAGMA(SET_VA_AGRS_AT(i, __VA_ARGS__));    \
+        SET_VA_ARG_LENGTH(__VA_ARGS__);               \
     }
 // safe macro
-#define DO_VA_ARGS(...)                \
-    do                                 \
-    {                                  \
-        DO_VA_ARGS_UNSAFE(__VA_ARGS__) \
+#define DO_VA_ARGS(...)                 \
+    do                                  \
+    {                                   \
+        DO_VA_ARGS_UNSAFE(__VA_ARGS__); \
     } while (0)
 
 #endif // ARGMAC_H

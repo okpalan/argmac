@@ -1,10 +1,9 @@
 CC = gcc
 INCLUDE= include
-CFLAGS =  -I$(INCLUDE) -
+CFLAGS =  -I$(INCLUDE) 
 BIN= bin
 SRC= src
 OBJ= obj
 
-all: $(SRC)/example.c 
+all:$(BIN)/example
 	$(CC) $(CFLAGS) -o $@ $^
-
