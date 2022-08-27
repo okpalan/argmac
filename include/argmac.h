@@ -31,13 +31,14 @@
 // Define the macros for the argument list
 // and prevent them from being called more than
 // once perform the pragmas.
+
 // unsafe macro
 #define DO_VA_ARGS_UNSAFE(...)                        \
     for (int i = 0; i < COUNT_ARGS(__VA_ARGS__); i++) \
     {                                                 \
-        DO_PRAGMA(__VA_ARGS__)                        \
-        SET_VA_ARG_LENGTH(__VA_ARGS__)
-
+        DO_PRAGMA(SET_VA_AGRS_AT(i, __VA_ARGS__))     \
+        SET_VA_ARG_LENGTH(__VA_ARGS__)                \
+    }
 // safe macro
 #define DO_VA_ARGS(...)                \
     do                                 \
