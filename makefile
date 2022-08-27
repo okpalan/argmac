@@ -1,6 +1,6 @@
 CC = gcc
 INCLUDE= include
-CFLAGS = -Wall  -I$(INCLUDE)
+CFLAGS =  -I$(INCLUDE)
 BIN= bin
 SRC= src
 OBJ= obj
