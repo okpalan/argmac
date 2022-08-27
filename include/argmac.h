@@ -9,7 +9,7 @@
 #define ARGMAC_H
 // for debugging
 #define DO_VA_ARGS_DEBUG 0
-#define __VA_ARGS__LENGTH 0 
+#define __VA_ARGS__LENGTH 0
 
 // define DO_PRAGMA to use the _Pragma operator.
 #define DO_PRAGMA(x) _Pragma(#x)
@@ -22,11 +22,10 @@
 #define SET_VA_ARG_LENGTH(...) \
     __VA_ARGS__LENGTH = COUNT_ARGS(__VA_ARGS__)
 
-#define SET_VA_AGRS_AT(I) 
-    // fix the syntax below.
-    __VA_ARGS__##I = I
+#define SET_VA_AGRS_AT(I, ...) \
+    __VA_ARGS__[I] = __VA_ARGS__
 
-#define GET_VA_AGRS_AT(I) \
+#define GET_VA_AGRS_AT(I, ...) \
     __VA_ARGS__##I
 
 // Define the macros for the argument list
